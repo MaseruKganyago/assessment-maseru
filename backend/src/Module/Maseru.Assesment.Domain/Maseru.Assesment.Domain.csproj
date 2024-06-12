@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <!--<Nullable>enable</Nullable>-->
 	<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
 	<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 	<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -42,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 	
