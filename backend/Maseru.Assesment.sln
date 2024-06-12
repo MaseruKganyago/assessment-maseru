@@ -1,0 +1,58 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9695FC1C-6D7C-4FE8-A47B-0D35F0A6649D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{244B7A5A-6740-4EE8-BCA3-5484C9DDF56A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maseru.Assesment.Domain", "src\Module\Maseru.Assesment.Domain\Maseru.Assesment.Domain.csproj", "{B744490E-1CEA-4F1B-B491-9BE83BA8271E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maseru.Assesment.Application", "src\Module\Maseru.Assesment.Application\Maseru.Assesment.Application.csproj", "{F94D1E05-84BF-417F-8DB1-BC11BA8CB3E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maseru.Assesment.Web.Core", "src\Maseru.Assesment.Web.Core\Maseru.Assesment.Web.Core.csproj", "{5970D896-0085-4FDF-85D7-9288D8F92867}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maseru.Assesment.Web.Host", "src\Maseru.Assesment.Web.Host\Maseru.Assesment.Web.Host.csproj", "{4C30E6AC-7B4F-43B5-AF5B-2F9C95BF8E60}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maseru.Assesment.Domain.Tests", "test\Maseru.Assesment.Domain.Tests\Maseru.Assesment.Domain.Tests.csproj", "{BE744F3B-B5F1-468D-B18F-ECB2415D9D22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B744490E-1CEA-4F1B-B491-9BE83BA8271E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B744490E-1CEA-4F1B-B491-9BE83BA8271E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B744490E-1CEA-4F1B-B491-9BE83BA8271E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B744490E-1CEA-4F1B-B491-9BE83BA8271E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F94D1E05-84BF-417F-8DB1-BC11BA8CB3E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F94D1E05-84BF-417F-8DB1-BC11BA8CB3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F94D1E05-84BF-417F-8DB1-BC11BA8CB3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F94D1E05-84BF-417F-8DB1-BC11BA8CB3E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5970D896-0085-4FDF-85D7-9288D8F92867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5970D896-0085-4FDF-85D7-9288D8F92867}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5970D896-0085-4FDF-85D7-9288D8F92867}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5970D896-0085-4FDF-85D7-9288D8F92867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C30E6AC-7B4F-43B5-AF5B-2F9C95BF8E60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C30E6AC-7B4F-43B5-AF5B-2F9C95BF8E60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C30E6AC-7B4F-43B5-AF5B-2F9C95BF8E60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C30E6AC-7B4F-43B5-AF5B-2F9C95BF8E60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE744F3B-B5F1-468D-B18F-ECB2415D9D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE744F3B-B5F1-468D-B18F-ECB2415D9D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE744F3B-B5F1-468D-B18F-ECB2415D9D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE744F3B-B5F1-468D-B18F-ECB2415D9D22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BE744F3B-B5F1-468D-B18F-ECB2415D9D22} = {244B7A5A-6740-4EE8-BCA3-5484C9DDF56A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95ED23F3-8DEA-456E-A44B-87A161CB696A}
+	EndGlobalSection
+EndGlobal
