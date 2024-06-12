@@ -1,22 +1,17 @@
-using System.Reflection;
-using System.Threading.Tasks;
 using Abp.AspNetCore;
 using Abp.AspNetCore.Configuration;
 using Abp.AutoMapper;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
-using Intent.RoslynWeaver.Attributes;
 using Shesha;
 using Shesha.Modules;
-using Shesha.Startup;
 using Shesha.Web.FormsDesigner;
+using System.Reflection;
+using System.Threading.Tasks;
 
-[assembly: IntentTemplate("Boxfusion.Modules.Application.Services.AppService", Version = "1.0")]
-[assembly: DefaultIntentManaged(Mode.Fully)]
 
 namespace Maseru.Assesment
 {
-	[IntentManaged(Mode.Ignore)]
 	/// <summary>
 	/// Assesment Module
 	/// </summary>
@@ -72,7 +67,7 @@ namespace Maseru.Assesment
 
 			Configuration.Modules.AbpAspNetCore().CreateControllersForAppServices(
 			   typeof(AssesmentApplicationModule).Assembly,
-			   moduleName: "ShaProjectName",
+			   moduleName: "Assesment",
 				useConventionalHttpVerbs: true);
 
 			Configuration.Modules.AbpAspNetCore()

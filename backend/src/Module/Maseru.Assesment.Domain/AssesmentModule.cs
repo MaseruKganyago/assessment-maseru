@@ -1,21 +1,14 @@
-using System.Reflection;
 using Abp.AspNetCore.Configuration;
 using Abp.AutoMapper;
 using Abp.Modules;
-using Castle.MicroKernel.Registration;
-using Intent.RoslynWeaver.Attributes;
 using Shesha;
-using Shesha.Authorization;
 using Shesha.Modules;
-
-[assembly: DefaultIntentManaged(Mode.Fully)]
-[assembly: IntentTemplate("Boxfusion.Modules.Domain.Module", Version = "1.0")]
+using System.Reflection;
 
 namespace Maseru.Assesment
 {
-	[IntentManaged(Mode.Ignore)]
 	/// <summary>
-	/// AssesmentCommon Module
+	/// Assesment Module
 	/// </summary>
 	[DependsOn(
 		typeof(SheshaCoreModule),
@@ -51,7 +44,7 @@ namespace Maseru.Assesment
 		{
 			Configuration.Modules.AbpAspNetCore().CreateControllersForAppServices(
 				typeof(AssesmentModule).Assembly,
-				moduleName: "AssesmentCommon",
+				moduleName: "Assesment",
 				useConventionalHttpVerbs: true);
 		}
 	}

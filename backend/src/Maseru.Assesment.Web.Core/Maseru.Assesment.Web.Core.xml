@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>ShaCompanyName.ShaProjectName.Web.Core</name>
+        <name>Maseru.Assesment.Web.Core</name>
     </assembly>
     <members>
         <member name="T:Maseru.Assesment.AssesmentWebCoreModule">
@@ -25,9 +25,66 @@
             
             </summary>
         </member>
+        <member name="T:Maseru.Assesment.Authorization.AssesmentPermissionChecker">
+            <summary>
+            Assesment Permission checker
+            </summary>
+        </member>
+        <member name="M:Maseru.Assesment.Authorization.AssesmentPermissionChecker.#ctor(Abp.Domain.Repositories.IRepository{Shesha.Domain.Person,System.Guid},Abp.Domain.Repositories.IRepository{Shesha.Domain.ShaRoleAppointedPerson,System.Guid})">
+            <summary>
+            
+            </summary>
+            <param name="personRepository"></param>
+            <param name="rolePersonRepository"></param>
+        </member>
+        <member name="M:Maseru.Assesment.Authorization.AssesmentPermissionChecker.IsGrantedAsync(System.Int64,System.String)">
+            <summary>
+            inheritedDoc
+            </summary>
+            <param name="userId"></param>
+            <param name="permissionName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maseru.Assesment.Authorization.AssesmentPermissionChecker.IsGranted(System.Int64,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="userId"></param>
+            <param name="permissionName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maseru.Assesment.Authorization.AssesmentPermissionChecker.IsInAnyOfRoles(Shesha.Domain.Person,System.String[])">
+            <summary>
+            inheritedDoc
+            </summary>
+            <param name="person"></param>
+            <param name="roles"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maseru.Assesment.Authorization.AssesmentPermissionChecker.IsDataAdministrator(Shesha.Domain.Person)">
+            <summary>
+            
+            </summary>
+            <param name="person"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maseru.Assesment.Authorization.AssesmentPermissionChecker.IsAdmin(Shesha.Domain.Person)">
+            <summary>
+            
+            </summary>
+            <param name="person"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maseru.Assesment.Authorization.AssesmentPermissionChecker.IsGlobalAdmin(Shesha.Domain.Person)">
+            <summary>
+            
+            </summary>
+            <param name="person"></param>
+            <returns></returns>
+        </member>
         <member name="T:Maseru.Assesment.Authorization.CommonRoles">
             <summary>
-            ShaProjectName Role Names
+            Assesment Role Names
             </summary>
         </member>
         <member name="F:Maseru.Assesment.Authorization.CommonRoles.DataAdministrator">
@@ -45,81 +102,26 @@
             
             </summary>
         </member>
-        <member name="T:Maseru.Assesment.Authorization.IShaProjectNamePermissionChecker">
+        <member name="T:Maseru.Assesment.Authorization.IAssesmentPermissionChecker">
             <summary>
-            ShaProjectName Permission checker
+            Assesment Permission checker
             </summary>
         </member>
-        <member name="M:Maseru.Assesment.Authorization.IShaProjectNamePermissionChecker.IsDataAdministrator(Shesha.Domain.Person)">
-            <summary>
-            
-            </summary>
-            <param name="person"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Maseru.Assesment.Authorization.IShaProjectNamePermissionChecker.IsGlobalAdmin(Shesha.Domain.Person)">
+        <member name="M:Maseru.Assesment.Authorization.IAssesmentPermissionChecker.IsDataAdministrator(Shesha.Domain.Person)">
             <summary>
             
             </summary>
             <param name="person"></param>
             <returns></returns>
         </member>
-        <member name="M:Maseru.Assesment.Authorization.IShaProjectNamePermissionChecker.IsAdmin(Shesha.Domain.Person)">
+        <member name="M:Maseru.Assesment.Authorization.IAssesmentPermissionChecker.IsGlobalAdmin(Shesha.Domain.Person)">
             <summary>
             
             </summary>
             <param name="person"></param>
             <returns></returns>
         </member>
-        <member name="T:Maseru.Assesment.Authorization.ShaProjectNamePermissionChecker">
-            <summary>
-            ShaProjectName Permission checker
-            </summary>
-        </member>
-        <member name="M:Maseru.Assesment.Authorization.ShaProjectNamePermissionChecker.#ctor(Abp.Domain.Repositories.IRepository{Shesha.Domain.Person,System.Guid},Abp.Domain.Repositories.IRepository{Shesha.Domain.ShaRoleAppointedPerson,System.Guid},Abp.Domain.Repositories.IRepository{Shesha.Domain.ShaRoleAppointmentEntity,System.Guid})">
-            <summary>
-            Default constructor
-            </summary>
-        </member>
-        <member name="M:Maseru.Assesment.Authorization.ShaProjectNamePermissionChecker.IsGrantedAsync(System.Int64,System.String)">
-            <summary>
-            inheritedDoc
-            </summary>
-            <param name="userId"></param>
-            <param name="permissionName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Maseru.Assesment.Authorization.ShaProjectNamePermissionChecker.IsGranted(System.Int64,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="userId"></param>
-            <param name="permissionName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Maseru.Assesment.Authorization.ShaProjectNamePermissionChecker.IsInAnyOfRoles(Shesha.Domain.Person,System.String[])">
-            <summary>
-            inheritedDoc
-            </summary>
-            <param name="person"></param>
-            <param name="roles"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Maseru.Assesment.Authorization.ShaProjectNamePermissionChecker.IsDataAdministrator(Shesha.Domain.Person)">
-            <summary>
-            
-            </summary>
-            <param name="person"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Maseru.Assesment.Authorization.ShaProjectNamePermissionChecker.IsAdmin(Shesha.Domain.Person)">
-            <summary>
-            
-            </summary>
-            <param name="person"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Maseru.Assesment.Authorization.ShaProjectNamePermissionChecker.IsGlobalAdmin(Shesha.Domain.Person)">
+        <member name="M:Maseru.Assesment.Authorization.IAssesmentPermissionChecker.IsAdmin(Shesha.Domain.Person)">
             <summary>
             
             </summary>

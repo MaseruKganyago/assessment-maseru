@@ -4,8 +4,8 @@
     <VersionPrefix>1.0.0.0</VersionPrefix>
     <TargetFramework>net8.0</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
-    <AssemblyName>ShaCompanyName.ShaProjectName.Web.Core</AssemblyName>
-    <PackageId>ShaCompanyName.ShaProjectName.Web.Core</PackageId>
+    <AssemblyName>Maseru.Assesment.Web.Core</AssemblyName>
+    <PackageId>Maseru.Assesment.Web.Core</PackageId>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -19,11 +19,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>.\ShaCompanyName.ShaProjectName.Web.Core.xml</DocumentationFile>
+    <DocumentationFile>.\Maseru.Assesment.Web.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>.\ShaCompanyName.ShaProjectName.Web.Core.xml</DocumentationFile>
+    <DocumentationFile>.\Maseru.Assesment.Web.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

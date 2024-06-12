@@ -22,7 +22,7 @@ namespace Maseru.Assesment
 	/// ReSharper disable once InconsistentNaming
 	/// </summary>
 	[DependsOn(
-		// Adding all the ShaProjectName Modules
+		// Adding all the Assesment Modules
 		typeof(SheshaFrameworkModule),
 		typeof(SheshaApplicationModule),
 		typeof(SheshaFormsDesignerModule),
@@ -79,7 +79,7 @@ namespace Maseru.Assesment
 			IocManager.RegisterAssemblyByConvention(typeof(AssesmentWebCoreModule).GetAssembly());
 
 			IocManager.IocContainer.Register(
-			Component.For<ICustomPermissionChecker>().Forward<IShaProjectNamePermissionChecker>().Forward<ShaProjectNamePermissionChecker>().ImplementedBy<ShaProjectNamePermissionChecker>().LifestyleTransient());
+			Component.For<ICustomPermissionChecker>().Forward<IAssesmentPermissionChecker>().Forward<AssesmentPermissionChecker>().ImplementedBy<AssesmentPermissionChecker>().LifestyleTransient());
 		}
 	}
 }

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 namespace Maseru.Assesment.Authorization
 {
 	/// <summary>
-	/// ShaProjectName Permission checker
+	/// Assesment Permission checker
 	/// </summary>
-	public interface IShaProjectNamePermissionChecker
+	public interface IAssesmentPermissionChecker
 	{
 		/// <summary>
 		/// 

@@ -1,7 +1,7 @@
 namespace Maseru.Assesment.Authorization
 {
 	/// <summary>
-	/// ShaProjectName Role Names
+	/// Assesment Role Names
 	/// </summary>
 	public static class CommonRoles
 	{
