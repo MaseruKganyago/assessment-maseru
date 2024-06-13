@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Entities.Auditing;
+﻿using Abp.AutoMapper;
+using Abp.Domain.Entities.Auditing;
 using Maseru.Assesment.Domain.Employees;
 using Maseru.Assesment.Domain.Enums;
 using System;
@@ -8,6 +9,7 @@ namespace Maseru.Assesment.Domain.Skills
     /// <summary>
     /// Represents an employee skill
     /// </summary>
+    [AutoMap(typeof(Skill))]
     public class Skill : FullAuditedEntity<Guid>
     {
         public virtual string Name { get; set; }

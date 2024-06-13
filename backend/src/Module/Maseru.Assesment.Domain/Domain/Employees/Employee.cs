@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Entities.Auditing;
+﻿using Abp.AutoMapper;
+using Abp.Domain.Entities.Auditing;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,6 +8,7 @@ namespace Maseru.Assesment.Domain.Employees
 	/// <summary>
 	/// 
 	/// </summary>
+    [AutoMap(typeof(Employee))]
 	public class Employee : FullAuditedEntity<Guid>
     {
         [StringLength(6)]
