@@ -12,12 +12,14 @@ namespace Maseru.Assesment.Domain.Employees
 	public class Employee : FullAuditedEntity<Guid>
     {
         [StringLength(6)]
-        public string EmployeeId { get; set; }
+        public virtual string EmployeeId { get; set; }
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual DateTime? DateOfBirth { get; set; }
         public virtual string Email { get; set; }
         public virtual string PhoneNumber { get; set; }
+
+        public virtual string FullName => $"{FirstName} {LastName}";
 
         #region Address information
         public virtual string Address { get; set; }
