@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Maseru.Assesment</RootNamespace>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <!-- Optional: Embed source files within the PDBs -->
     <EmbedAllSources>true</EmbedAllSources>
 
