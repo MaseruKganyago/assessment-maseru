@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Maseru.Assesment.Domain.Employees
 {
@@ -8,6 +9,8 @@ namespace Maseru.Assesment.Domain.Employees
 	/// </summary>
 	public class Employee : FullAuditedEntity<Guid>
     {
+        [StringLength(6)]
+        public string EmployeeId { get; set; }
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual DateTime? DateOfBirth { get; set; }
@@ -17,7 +20,7 @@ namespace Maseru.Assesment.Domain.Employees
         #region Address information
         public virtual string Address { get; set; }
         public virtual string City { get; set; }
-        public virtual long PostalCode { get; set; }
+        public virtual long? PostalCode { get; set; }
         public virtual string Country { get; set; }
         #endregion
     }

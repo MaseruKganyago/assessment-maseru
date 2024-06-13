@@ -1,6 +1,5 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Intent.RoslynWeaver.Attributes;
 using Shesha.Attributes;
 
 // General Information about an assembly is controlled through the following
@@ -8,7 +7,7 @@ using Shesha.Attributes;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Maseru.Assesment.Common")]
+[assembly: AssemblyProduct("Maseru.Assesment")]
 
 [assembly: AssemblyTrademark("")]
 
@@ -21,4 +20,3 @@ using Shesha.Attributes;
 [assembly: Guid("541f6f3c-1e7f-4ded-9807-12ea3ec7a650")]
 
 [assembly: TablePrefix("Assesment_")]
-[assembly: IntentTemplate("Boxfusion.Modules.Domain.Properties", Version = "1.0")]
