@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <!--<Nullable>enable</Nullable>-->
 	<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
 	<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 	<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -16,6 +16,7 @@
     <!-- Include DLLs and XML documentation files in the NuGet package output -->
     <AllowedOutputExtensionsInPackageBuildOutput>.dll;.xml;.pdb</AllowedOutputExtensionsInPackageBuildOutput>
     <RootNamespace>Maseru.Assesment</RootNamespace>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -45,7 +45,7 @@ namespace Maseru.Assesment.Domain.Employees
 		/// </summary>
 		/// <param name="input"></param>
 		/// <returns></returns>
-		public async Task<Employee> CreateEmployee(Employee input, List<Skill> employeeSkills)
+		public async Task<Employee> CreateEmployeeAsync(Employee input, List<Skill> employeeSkills)
 		{
 			input.EmployeeId = GenerateEmployeeId();
 
@@ -54,7 +54,7 @@ namespace Maseru.Assesment.Domain.Employees
 			await this.FluentValidationsOnEntityAsync(input, validationResults);
 
 			if (validationResults.Count != 0)
-				throw new AbpValidationException("Please correct the errors on CreateEmployee and try again", validationResults);
+				throw new AbpValidationException("Please correct the errors on CreateEmployeeAsync and try again", validationResults);
 
 			var entity = await this.SaveOrUpdateEntityAsync<Employee, Guid>(null, async item => 
 			{
@@ -77,14 +77,14 @@ namespace Maseru.Assesment.Domain.Employees
 		/// <param name="employeeSkills"></param>
 		/// <returns></returns>
 		/// <exception cref="AbpValidationException"></exception>
-		public async Task<Employee> UpdateEmployee(Employee input, List<Skill> employeeSkills)
+		public async Task<Employee> UpdateEmployeeAsync(Employee input, List<Skill> employeeSkills)
 		{
 			//Runs validation rules defined on the entity.
 			var validationResults = new List<ValidationResult>();
 			await this.FluentValidationsOnEntityAsync(input, validationResults);
 
 			if (validationResults.Count != 0)
-				throw new AbpValidationException("Please correct the errors on UpdateEmployee and try again", validationResults);
+				throw new AbpValidationException("Please correct the errors on UpdateEmployeeAsync and try again", validationResults);
 
 			var entity = await this.SaveOrUpdateEntityAsync<Employee, Guid>(input.Id, async item =>
 			{
