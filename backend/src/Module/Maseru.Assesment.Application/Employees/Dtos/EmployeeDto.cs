@@ -20,6 +20,7 @@ namespace Maseru.Assesment.Employees.Dtos
         public string Address { get; set; }
         public string City { get; set; }
         public long? PostalCode { get; set; }
+        public string PostalCodeString => PostalCode?.ToString("D4");
         public string Country { get; set; }
         #endregion
 

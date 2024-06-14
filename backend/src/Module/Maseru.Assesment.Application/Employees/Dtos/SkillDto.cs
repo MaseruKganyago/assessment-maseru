@@ -18,7 +18,7 @@ namespace Maseru.Assesment.Employees.Dtos
     {
         public string Name { get; set; }
         public long? YearsOfExperience { get; set; }
-        public ReferenceListDto SkillLevel { get; set; }
+        public ReferenceListItemValueDto SkillLevel { get; set; }
         public EntityReferenceDto<Guid?> Employee { get; set; }
     }
 }

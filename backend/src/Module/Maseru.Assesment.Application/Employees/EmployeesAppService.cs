@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Repositories;
+﻿using Abp.Authorization;
+using Abp.Domain.Repositories;
 using Maseru.Assesment.Domain.Employees;
 using Maseru.Assesment.Domain.Skills;
 using Maseru.Assesment.Employees.Dtos;
@@ -12,6 +13,10 @@ using System.Threading.Tasks;
 
 namespace Maseru.Assesment.Employees
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	[AbpAllowAnonymous]
 	public class EmployeesAppService: SheshaAppServiceBase
 	{
 		private readonly EmployeeManager _employeeManager;
@@ -66,7 +71,7 @@ namespace Maseru.Assesment.Employees
 		[HttpPut]
 		public async Task<EmployeeDto> Update(EmployeeDto input)
 		{
-			var skills = input.Skills.Select(s => ObjectMapper.Map<Skill>(s)).ToList();
+			var skills = input.Skills?.Select(s => ObjectMapper.Map<Skill>(s)).ToList();
 
 			var employee = await _employeeManager.UpdateEmployeeAsync(ObjectMapper.Map<Employee>(input), skills);
 

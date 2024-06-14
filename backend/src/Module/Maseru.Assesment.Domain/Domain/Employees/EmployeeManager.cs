@@ -1,7 +1,9 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.Domain.Services;
+using Abp.Domain.Uow;
 using Abp.Runtime.Validation;
 using Maseru.Assesment.Domain.Skills;
+using NHibernate;
 using Shesha.Domain;
 using Shesha.NHibernate;
 using System;
@@ -19,16 +21,18 @@ namespace Maseru.Assesment.Domain.Employees
 	{
 		private readonly IRepository<Employee, Guid> _repository;
 		private readonly ISessionProvider _sessionProvider;
+		private readonly IUnitOfWorkManager _uowManager;
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sessionProvider"></param>
 		/// <param name="repository"></param>
-		public EmployeeManager(ISessionProvider sessionProvider, IRepository<Employee, Guid> repository)
+		public EmployeeManager(IRepository<Employee, Guid> repository, ISessionProvider sessionProvider, IUnitOfWorkManager uowManager)
 		{
-			_sessionProvider = sessionProvider;
 			_repository = repository;
+			_sessionProvider = sessionProvider;
+			_uowManager = uowManager;
 		}
 
 		/// <summary>
@@ -56,8 +60,12 @@ namespace Maseru.Assesment.Domain.Employees
 			{
 				ObjectMapper.Map(input, item);
 			});
+			
+			var transaction = _sessionProvider.Session.GetCurrentTransaction();
+			if (transaction != null)
+				transaction.Commit();
 
-			await CreateUpdateEmployeeSkills(entity, employeeSkills);
+			await CreateUpdateEmployeeSkills(entity.Id, employeeSkills);
 
 			return entity;
 		}
@@ -83,7 +91,11 @@ namespace Maseru.Assesment.Domain.Employees
 				ObjectMapper.Map(input, item);
 			});
 
-			await CreateUpdateEmployeeSkills(entity, employeeSkills);
+			var transaction = _sessionProvider.Session.GetCurrentTransaction();
+			if (transaction != null)
+				transaction.Commit();
+
+			await CreateUpdateEmployeeSkills(entity.Id, employeeSkills);
 
 			return entity;
 		}
@@ -106,25 +118,24 @@ namespace Maseru.Assesment.Domain.Employees
 		/// <param name="employeeSkills"></param>
 		/// <returns></returns>
 		/// <exception cref="AbpValidationException"></exception>
-		public async Task CreateUpdateEmployeeSkills(Employee employee, List<Skill> employeeSkills)
+		public async Task CreateUpdateEmployeeSkills(Guid employeeId, List<Skill> employeeSkills)
 		{
 			if (employeeSkills != null && employeeSkills.Count > 0)
 			{
 				foreach (var skill in employeeSkills)
 				{
-					skill.Employee = employee;
+					var Employee = await _repository.GetAsync(employeeId);
 
-					//Runs validation rules defined on entity
-					var validationResults = new List<ValidationResult>();
-					await this.FluentValidationsOnEntityAsync(skill, validationResults);
+					if (string.IsNullOrEmpty(skill.Name) || Employee is null)
+						throw new AbpValidationException("Skill Name and Employee are required.");
 
-					if (validationResults.Count != 0)
-						throw new AbpValidationException("Please correct the errors on EmployeeSkills and try again", validationResults);
+					Guid? skillId = Guid.Empty.Equals(skill.Id) ? null : skill.Id;
 
 					//If skill.id is null, then is create operation else update operation
-					await this.SaveOrUpdateEntityAsync<Skill, Guid>(skill.Id, async item =>
+					await this.SaveOrUpdateEntityAsync<Skill, Guid>(skillId, async item =>
 					{
 						ObjectMapper.Map(skill, item);
+						item.Employee = Employee;
 					});
 				}
 			}
