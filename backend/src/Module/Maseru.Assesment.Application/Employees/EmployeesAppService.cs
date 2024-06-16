@@ -4,7 +4,9 @@ using Maseru.Assesment.Domain.Employees;
 using Maseru.Assesment.Domain.Skills;
 using Maseru.Assesment.Employees.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using NHibernate.Transform;
 using Shesha;
+using Shesha.NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +23,17 @@ namespace Maseru.Assesment.Employees
 	{
 		private readonly EmployeeManager _employeeManager;
 		private readonly IRepository<Skill, Guid> _skillRepo;
+		private readonly ISessionProvider _sessionProvider;
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="employeeManager"></param>
-		public EmployeesAppService(EmployeeManager employeeManager, IRepository<Skill, Guid> skillRepo)
+		public EmployeesAppService(EmployeeManager employeeManager, IRepository<Skill, Guid> skillRepo, ISessionProvider sessionProvider)
 		{
 			_employeeManager = employeeManager;
 			_skillRepo = skillRepo;
+			_sessionProvider = sessionProvider;
 		}
 
 		/// <summary>
@@ -46,6 +50,28 @@ namespace Maseru.Assesment.Employees
 			employee.Skills = skills.Select(s => ObjectMapper.Map<SkillDto>(s)).ToList();
 
 			return employee;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="searchFilters"></param>
+		/// <returns></returns>
+		[HttpGet]
+		public async Task<List<EmployeeDto>> GetAll(SearchFilterDto searchFilters)
+		{
+			var sql = @"Exec sp_Assesment_EmployeesWithFilter @SearchString = :searchString, @DateOfBirth = :dateOfBirth,
+				 @SkillName = :skillName, @SkillLevel = :skillLevel, @YearsOfExperience = :yearsOfExperience";
+
+			return (await _sessionProvider.Session.CreateSQLQuery(sql)
+							.SetParameter("searchString", searchFilters.SearchString)
+							.SetParameter("skillName", searchFilters.SkillName)
+							.SetParameter("skillLevel", searchFilters.SkillLevel)
+							.SetParameter("yearsOfExperience", searchFilters.YearsOfExperience)
+							.SetParameter("dateOfBirth", searchFilters.DateOfBirth)
+							.SetResultTransformer(Transformers.AliasToBean<EmployeeDto>())
+							.ListAsync<EmployeeDto>())
+							.ToList();
 		}
 
 		/// <summary>
