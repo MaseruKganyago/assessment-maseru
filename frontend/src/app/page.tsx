@@ -1,6 +1,6 @@
 'use client';
 
-import { PageTitle, SearchInput } from '@/components';
+import { FiltersDrawer, PageTitle, SearchInput } from '@/components';
 import { StyledBody, StyledHeader, StyledPage } from './styles';
 import { FC, useEffect } from 'react';
 import { useEmployees } from '@/providers';
@@ -20,6 +20,8 @@ const Page: FC<IProps> = ({}) => {
         <PageTitle />
 
         <SearchInput />
+
+        <FiltersDrawer />
       </StyledHeader>
 
       <StyledBody className="page-body"></StyledBody>

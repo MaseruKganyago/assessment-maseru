@@ -5,7 +5,7 @@ import { Input } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import _ from 'lodash';
 
-export interface ISearchProps {}
+interface ISearchProps {}
 
 const { Search } = Input;
 

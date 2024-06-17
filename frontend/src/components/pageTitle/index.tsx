@@ -3,7 +3,7 @@ import { StyledTitle } from './styles';
 import { Typography } from 'antd';
 import { useEmployees } from '@/providers';
 
-export interface TitleProps {}
+interface TitleProps {}
 
 const { Title, Text } = Typography;
 

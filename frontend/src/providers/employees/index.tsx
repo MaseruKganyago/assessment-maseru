@@ -2,9 +2,14 @@
 
 import { FC, PropsWithChildren, use, useContext, useEffect, useReducer } from 'react';
 import { employeesReducer } from './reducer';
-import { EMPLOYEES_CONTEXT_INITIAL_STATE, EmployeesActionsContext, EmployeesStateContext } from './contexts';
+import {
+  EMPLOYEES_CONTEXT_INITIAL_STATE,
+  EmployeesActionsContext,
+  EmployeesStateContext,
+  FiltersDrawer,
+} from './contexts';
 import { UseGetAllEmployeesQueryParams, useGetAllEmployees } from '@/api/employees';
-import { getAllEmployeesErrorAction, getAllEmployeesSuccessAction } from './actions';
+import { getAllEmployeesErrorAction, getAllEmployeesSuccessAction, openCloseFiltersDrawerAction } from './actions';
 import { useLocalStorage } from '@/hooks';
 
 export const FILTERS_SETTIGNS_ID = 'FILTERS_SETTIGNS_ID';
@@ -38,9 +43,19 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   };
   //#endregion
 
+  const openCloseFiltersDrawer = (drawerState: FiltersDrawer) => dispatch(openCloseFiltersDrawerAction(drawerState));
+
+  // Clear filter settings, in FilterDrawer component.
+  const clearFilterSettings = () => {
+    setFilterSettings({ searchString: filterSettings?.searchString });
+
+    getAllEmployeesHttp({ queryParams: { searchString: filterSettings?.searchString } });
+  };
   return (
     <EmployeesStateContext.Provider value={{ ...state, isFetchingAllEmployees, filterSettings }}>
-      <EmployeesActionsContext.Provider value={{ getAllEmployees }}>{children}</EmployeesActionsContext.Provider>
+      <EmployeesActionsContext.Provider value={{ getAllEmployees, openCloseFiltersDrawer, clearFilterSettings }}>
+        {children}
+      </EmployeesActionsContext.Provider>
     </EmployeesStateContext.Provider>
   );
 };

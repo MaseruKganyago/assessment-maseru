@@ -58,7 +58,7 @@ export interface EmployeeListAjaxResponse {
 
 export interface UseGetAllEmployeesQueryParams {
   searchString?: string | null;
-  dateOfBirth?: string | null;
+  dateOfBirth?: any | null;
   skillName?: string | null;
   skillLevel?: number | null;
   yearsOfExperience?: number | null;
