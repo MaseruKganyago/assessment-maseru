@@ -30,7 +30,7 @@ export const SearchInput: FC<ISearchProps> = ({}) => {
       value={searchText}
       onSearch={handleSearch}
       onChange={(e) => setSearchText(e.target.value)}
-      style={{ width: 300 }}
+      style={{ width: 500 }}
     />
   );
 };
