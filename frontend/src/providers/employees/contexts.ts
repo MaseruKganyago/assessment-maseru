@@ -5,6 +5,7 @@ export interface IEmployeesStateContext {
   employees?: EmployeeDto[];
   isFetchingAllEmployees?: boolean;
   error?: any;
+  filterSettings?: UseGetAllEmployeesQueryParams;
 }
 
 export interface IEmployeesActionsContext {

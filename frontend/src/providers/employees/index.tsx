@@ -1,11 +1,18 @@
+'use client';
+
 import { FC, PropsWithChildren, use, useContext, useEffect, useReducer } from 'react';
 import { employeesReducer } from './reducer';
 import { EMPLOYEES_CONTEXT_INITIAL_STATE, EmployeesActionsContext, EmployeesStateContext } from './contexts';
 import { UseGetAllEmployeesQueryParams, useGetAllEmployees } from '@/api/employees';
 import { getAllEmployeesErrorAction, getAllEmployeesSuccessAction } from './actions';
+import { useLocalStorage } from '@/hooks';
+
+export const FILTERS_SETTIGNS_ID = 'FILTERS_SETTIGNS_ID';
 
 const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const [state, dispatch] = useReducer(employeesReducer, EMPLOYEES_CONTEXT_INITIAL_STATE);
+
+  const [filterSettings, setFilterSettings] = useLocalStorage<UseGetAllEmployeesQueryParams>(FILTERS_SETTIGNS_ID, null);
 
   //#region GetAllEmployees http request
   const {
@@ -24,12 +31,15 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   }, [isFetchingAllEmployees]);
 
   const getAllEmployees = (filters: UseGetAllEmployeesQueryParams) => {
-    getAllEmployeesHttp({ queryParams: filters });
+    const newFilters = { ...filterSettings, ...filters };
+    setFilterSettings(newFilters);
+
+    getAllEmployeesHttp({ queryParams: newFilters });
   };
   //#endregion
 
   return (
-    <EmployeesStateContext.Provider value={{ ...state, isFetchingAllEmployees }}>
+    <EmployeesStateContext.Provider value={{ ...state, isFetchingAllEmployees, filterSettings }}>
       <EmployeesActionsContext.Provider value={{ getAllEmployees }}>{children}</EmployeesActionsContext.Provider>
     </EmployeesStateContext.Provider>
   );
