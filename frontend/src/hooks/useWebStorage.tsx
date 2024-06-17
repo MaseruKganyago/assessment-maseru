@@ -5,6 +5,9 @@ export function useWebStorage<T>(
   key: string,
   initialValue: T
 ): [T, (v: T) => void] {
+  //Always return the initial value if window is undefined
+  if (typeof window === 'undefined') return [initialValue, () => {}];
+
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState<T>(() => {
