@@ -12,6 +12,7 @@ export function employeesReducer(
     case EmployeesActionEnums.GetAllEmployeesSuccess:
     case EmployeesActionEnums.GetAllEmployeesError:
     case EmployeesActionEnums.OpenCloseFiltersDrawer:
+    case EmployeesActionEnums.SetInteractiveMode:
       return {
         ...state,
         ...payload,

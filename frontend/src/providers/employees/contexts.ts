@@ -2,6 +2,7 @@ import { EmployeeDto, UseGetAllEmployeesQueryParams } from '@/api/employees';
 import { createContext } from 'react';
 
 export type FiltersDrawer = 'open' | 'closed';
+export type InterActiveMode = 'create' | 'edit';
 
 export interface IEmployeesStateContext {
   employees?: EmployeeDto[];
@@ -9,12 +10,14 @@ export interface IEmployeesStateContext {
   error?: any;
   filterSettings?: UseGetAllEmployeesQueryParams;
   drawerState?: FiltersDrawer;
+  interactiveMode?: InterActiveMode;
 }
 
 export interface IEmployeesActionsContext {
   getAllEmployees: (filters?: UseGetAllEmployeesQueryParams) => void;
   openCloseFiltersDrawer: (drawerState: FiltersDrawer) => void;
   clearFilterSettings: () => void;
+  setInteractiveMode: (interactiveMode: InterActiveMode) => void;
 }
 
 export const EMPLOYEES_CONTEXT_INITIAL_STATE: IEmployeesStateContext = {};

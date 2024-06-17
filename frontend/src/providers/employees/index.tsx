@@ -7,9 +7,15 @@ import {
   EmployeesActionsContext,
   EmployeesStateContext,
   FiltersDrawer,
+  InterActiveMode,
 } from './contexts';
 import { UseGetAllEmployeesQueryParams, useGetAllEmployees } from '@/api/employees';
-import { getAllEmployeesErrorAction, getAllEmployeesSuccessAction, openCloseFiltersDrawerAction } from './actions';
+import {
+  getAllEmployeesErrorAction,
+  getAllEmployeesSuccessAction,
+  openCloseFiltersDrawerAction,
+  setInteractiveModeAction,
+} from './actions';
 import { useLocalStorage } from '@/hooks';
 
 export const FILTERS_SETTIGNS_ID = 'FILTERS_SETTIGNS_ID';
@@ -51,9 +57,13 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 
     getAllEmployeesHttp({ queryParams: { searchString: filterSettings?.searchString } });
   };
+
+  const setInteractiveMode = (interactiveMode: InterActiveMode) => dispatch(setInteractiveModeAction(interactiveMode));
   return (
     <EmployeesStateContext.Provider value={{ ...state, isFetchingAllEmployees, filterSettings }}>
-      <EmployeesActionsContext.Provider value={{ getAllEmployees, openCloseFiltersDrawer, clearFilterSettings }}>
+      <EmployeesActionsContext.Provider
+        value={{ getAllEmployees, openCloseFiltersDrawer, clearFilterSettings, setInteractiveMode }}
+      >
         {children}
       </EmployeesActionsContext.Provider>
     </EmployeesStateContext.Provider>
