@@ -1,7 +1,8 @@
 import { useEmployees } from '@/providers';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { Button, Modal } from 'antd';
+import { Button, Form, Modal } from 'antd';
 import { FC, useState } from 'react';
+import { CreateUpdateEmployeeForm } from '@/components';
 
 interface INewEmployeeButtonProps {}
 
@@ -9,6 +10,8 @@ const NewEmployeeButtonModal: FC<INewEmployeeButtonProps> = ({}) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { setInteractiveMode } = useEmployees();
+
+  const [form] = Form.useForm();
 
   const handleOnNewEmployeeClick = () => {
     setOpen(!open);
@@ -27,7 +30,9 @@ const NewEmployeeButtonModal: FC<INewEmployeeButtonProps> = ({}) => {
         New Employee
       </Button>
 
-      <Modal title="New Employee" open={open} onOk={handleOnOk} onCancel={handleCancel}></Modal>
+      <Modal title="New Employee" open={open} width={700} onOk={handleOnOk} onCancel={handleCancel}>
+        <CreateUpdateEmployeeForm form={form} />
+      </Modal>
     </>
   );
 };
