@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { FiltersDrawer, IEmployeesStateContext } from './contexts';
+import { FiltersDrawer, IEmployeesStateContext, InterActiveMode } from './contexts';
 import { EmployeeDto } from '@/api/employees';
 
 export enum EmployeesActionEnums {
@@ -7,6 +7,7 @@ export enum EmployeesActionEnums {
   GetAllEmployeesSuccess = 'GET_ALL_EMPLOYEES_SUCCESS',
   GetAllEmployeesError = 'GET_ALL_EMPLOYEES_ERROR',
   OpenCloseFiltersDrawer = 'OPEN_CLOSE_FILTERS_DRAWER',
+  SetInteractiveMode = 'SET_INTERACTIVE_MODE',
 }
 
 export const getAllEmployeesAction = createAction<IEmployeesStateContext>(
@@ -27,4 +28,9 @@ export const getAllEmployeesErrorAction = createAction<IEmployeesStateContext, a
 export const openCloseFiltersDrawerAction = createAction<IEmployeesStateContext, FiltersDrawer>(
   EmployeesActionEnums.OpenCloseFiltersDrawer,
   (drawerState: FiltersDrawer) => ({ drawerState })
+);
+
+export const setInteractiveModeAction = createAction<IEmployeesStateContext, InterActiveMode>(
+  EmployeesActionEnums.SetInteractiveMode,
+  (interactiveMode: InterActiveMode) => ({ interactiveMode })
 );
