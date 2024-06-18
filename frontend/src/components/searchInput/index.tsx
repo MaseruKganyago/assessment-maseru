@@ -1,5 +1,3 @@
-'use client';
-
 import { useEmployees } from '@/providers';
 import { Input } from 'antd';
 import { FC, useEffect, useState } from 'react';
@@ -10,7 +8,7 @@ interface ISearchProps {}
 const { Search } = Input;
 
 export const SearchInput: FC<ISearchProps> = ({}) => {
-  const { getAllEmployees, filterSettings } = useEmployees();
+  const { getAllEmployees, filterSettings, storeFilterSettings } = useEmployees();
   const [searchText, setSearchText] = useState<string>('');
 
   useEffect(() => {
@@ -21,6 +19,8 @@ export const SearchInput: FC<ISearchProps> = ({}) => {
 
   const handleSearch = (searchString: string) => {
     getAllEmployees({ searchString });
+
+    storeFilterSettings({ ...filterSettings, searchString });
   };
 
   return (

@@ -21,7 +21,9 @@ export interface IEmployeesActionsContext {
   storeFilterSettings: (filters: UseGetAllEmployeesQueryParams) => void;
 }
 
-export const EMPLOYEES_CONTEXT_INITIAL_STATE: IEmployeesStateContext = {};
+export const EMPLOYEES_CONTEXT_INITIAL_STATE: IEmployeesStateContext = {
+  filterSettings: {},
+};
 
 export const EmployeesStateContext = createContext<IEmployeesStateContext>(EMPLOYEES_CONTEXT_INITIAL_STATE);
 
