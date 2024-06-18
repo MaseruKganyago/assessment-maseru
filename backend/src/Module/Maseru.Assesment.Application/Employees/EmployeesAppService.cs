@@ -114,5 +114,16 @@ namespace Maseru.Assesment.Employees
 		{
 			await _employeeManager.Repository.DeleteAsync(id);
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		[HttpDelete]
+		public async Task DeleteSkill(Guid id)
+		{
+			await _skillRepo.DeleteAsync(id);
+		}
 	}
 }
