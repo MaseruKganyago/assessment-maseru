@@ -16,3 +16,5 @@ export const SKILL_LEVELS: ReferenceListItemValueDto[] = [
     itemValue: 3,
   },
 ];
+
+export const FILTERS_SETTINGS_ID = 'FILTERS_SETTINGS';

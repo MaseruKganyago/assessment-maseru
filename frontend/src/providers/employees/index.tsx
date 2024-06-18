@@ -18,13 +18,12 @@ import {
 } from './actions';
 import { useLocalStorage } from '@/hooks';
 import _ from 'lodash';
-
-export const FILTERS_SETTIGNS_ID = 'FILTERS_SETTINGS';
+import { FILTERS_SETTINGS_ID } from '@/app-constants';
 
 const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const [state, dispatch] = useReducer(employeesReducer, EMPLOYEES_CONTEXT_INITIAL_STATE);
 
-  const [filterSettings, setFilterSettings] = useLocalStorage<UseGetAllEmployeesQueryParams>(FILTERS_SETTIGNS_ID, null);
+  const [filterSettings, setFilterSettings] = useLocalStorage<UseGetAllEmployeesQueryParams>(FILTERS_SETTINGS_ID, null);
 
   //#region GetAllEmployees http request
   const {
