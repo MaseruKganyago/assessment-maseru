@@ -13,9 +13,9 @@ const { confirm } = Modal;
 const EmployeeDeleteButton: FC<IEmployeeDeketeButtonProps> = ({ id, postDelete }) => {
   const { mutate: deleteEmployeeHttp } = useEmployeesDelete({ queryParams: { id } });
 
-  const showPromiseConfirm = () => {
+  const showDeleteConfirm = () => {
     confirm({
-      title: 'Delete employee',
+      title: 'Delete Employee',
       icon: <ExclamationCircleFilled />,
       content: 'Are you sure you want to delete this employee?',
       okType: 'danger',
@@ -30,7 +30,7 @@ const EmployeeDeleteButton: FC<IEmployeeDeketeButtonProps> = ({ id, postDelete }
     });
   };
   return (
-    <Button type="link" onClick={showPromiseConfirm}>
+    <Button type="link" onClick={showDeleteConfirm}>
       <DeleteOutlined />
     </Button>
   );

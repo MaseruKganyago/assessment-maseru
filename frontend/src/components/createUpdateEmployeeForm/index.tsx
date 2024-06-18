@@ -123,7 +123,7 @@ const CreateUpdateEmployeeForm: FC<CreateUpdateEmployeeFormProps> = ({ form }) =
       />
 
       <Divider orientation="left">Skills</Divider>
-      <SkillsFormList />
+      <SkillsFormList skills={employee?.skills || []} />
     </Form>
   );
 };
