@@ -88,12 +88,25 @@ namespace Maseru.Assesment.Domain.Employees
 
 			var entity = await this.SaveOrUpdateEntityAsync<Employee, Guid>(input.Id, async item =>
 			{
+				input.EmployeeId = item.EmployeeId; //Retain the original employeeId
 				ObjectMapper.Map(input, item);
 			});
 
 			var transaction = _sessionProvider.Session.GetCurrentTransaction();
 			if (transaction != null)
 				transaction.Commit();
+			else 
+			{
+				//If transaction is null, then create a new transaction using UnitOfWorkManager.
+				using (var uow = _uowManager.Begin())
+				{
+					var trandaction = _sessionProvider.Session.GetCurrentTransaction();
+					transaction.Commit();
+
+					await CreateUpdateEmployeeSkills(entity.Id, employeeSkills);
+					uow.Complete();
+				}
+			}
 
 			await CreateUpdateEmployeeSkills(entity.Id, employeeSkills);
 

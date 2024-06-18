@@ -13,6 +13,7 @@ export function employeesReducer(
     case EmployeesActionEnums.GetAllEmployeesError:
     case EmployeesActionEnums.OpenCloseFiltersDrawer:
     case EmployeesActionEnums.SetInteractiveMode:
+    case EmployeesActionEnums.StoreEmployeeId:
       return {
         ...state,
         ...payload,

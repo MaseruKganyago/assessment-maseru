@@ -9,21 +9,22 @@ import {
   FiltersDrawer,
   InterActiveMode,
 } from './contexts';
-import { UseGetAllEmployeesQueryParams, useGetAllEmployees } from '@/api/employees';
 import {
   getAllEmployeesErrorAction,
   getAllEmployeesSuccessAction,
   openCloseFiltersDrawerAction,
   setInteractiveModeAction,
+  storeEmployeeIdAction,
 } from './actions';
 import { useLocalStorage } from '@/hooks';
 import _ from 'lodash';
 import { FILTERS_SETTINGS_ID } from '@/app-constants';
+import { UseEmployeesGetAllQueryParams, useEmployeesGetAll } from '@/api/employees';
 
 const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const [state, dispatch] = useReducer(employeesReducer, EMPLOYEES_CONTEXT_INITIAL_STATE);
 
-  const [filterSettings, setFilterSettings] = useLocalStorage<UseGetAllEmployeesQueryParams>(FILTERS_SETTINGS_ID, null);
+  const [filterSettings, setFilterSettings] = useLocalStorage<UseEmployeesGetAllQueryParams>(FILTERS_SETTINGS_ID, null);
 
   //#region GetAllEmployees http request
   const {
@@ -31,7 +32,7 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     data,
     loading: isFetchingAllEmployees,
     error,
-  } = useGetAllEmployees({ lazy: true });
+  } = useEmployeesGetAll({ lazy: true });
 
   useEffect(() => {
     if (!isFetchingAllEmployees && data) {
@@ -41,7 +42,7 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     }
   }, [isFetchingAllEmployees]);
 
-  const getAllEmployees = (filters: UseGetAllEmployeesQueryParams) => {
+  const getAllEmployees = (filters: UseEmployeesGetAllQueryParams) => {
     getAllEmployeesHttp({ queryParams: filters });
   };
   //#endregion
@@ -49,7 +50,7 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const openCloseFiltersDrawer = (drawerState: FiltersDrawer) => dispatch(openCloseFiltersDrawerAction(drawerState));
 
   //Update filter settings, in local storage.
-  const storeFilterSettings = (filters: UseGetAllEmployeesQueryParams) => {
+  const storeFilterSettings = (filters: UseEmployeesGetAllQueryParams) => {
     setFilterSettings({ ...filterSettings, ...filters });
   };
 
@@ -60,7 +61,9 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     getAllEmployeesHttp({ queryParams: { searchString: filterSettings?.searchString } });
   };
 
-  const setInteractiveMode = (interactiveMode: InterActiveMode) => dispatch(setInteractiveModeAction(interactiveMode));
+  const setInteractiveMode = (interactiveMode?: InterActiveMode) => dispatch(setInteractiveModeAction(interactiveMode));
+
+  const storeEmployeeId = (employeeId: string) => dispatch(storeEmployeeIdAction(employeeId));
   return (
     <EmployeesStateContext.Provider value={{ ...state, isFetchingAllEmployees, filterSettings }}>
       <EmployeesActionsContext.Provider
@@ -70,6 +73,7 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
           storeFilterSettings,
           clearFilterSettings,
           setInteractiveMode,
+          storeEmployeeId,
         }}
       >
         {children}

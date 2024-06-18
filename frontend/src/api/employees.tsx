@@ -24,7 +24,7 @@ export interface EmployeeDto {
   employeeId?: string | null;
   firstName?: string | null;
   lastName?: string | null;
-  dateOfBirth?: string | null;
+  dateOfBirth?: any | null;
   email?: string | null;
   phoneNumber?: string | null;
   address?: string | null;
@@ -47,6 +47,15 @@ export interface ErrorInfo {
   validationErrors?: ValidationErrorInfo[] | null;
 }
 
+export interface EmployeeAjaxResponse {
+  result?: EmployeeDto | null;
+  targetUrl?: string | null;
+  success?: boolean;
+  error?: ErrorInfo;
+  unAuthorizedRequest?: boolean;
+  __abp?: boolean;
+}
+
 export interface EmployeeListAjaxResponse {
   result?: EmployeeDto[] | null;
   targetUrl?: string | null;
@@ -56,7 +65,7 @@ export interface EmployeeListAjaxResponse {
   __abp?: boolean;
 }
 
-export interface UseGetAllEmployeesQueryParams {
+export interface UseEmployeesGetAllQueryParams {
   searchString?: string | null;
   dateOfBirth?: any | null;
   skillName?: string | null;
@@ -72,13 +81,27 @@ export interface AjaxResponseBase {
   __abp?: boolean;
 }
 
-export type UseGetAllEmployeesProps = Omit<
-  UseGetProps<EmployeeListAjaxResponse, ErrorInfo, UseGetAllEmployeesQueryParams, void>,
+export interface EmployeesGetQueryParams {
+  id?: string;
+}
+export type UseEmployeesGetProps = Omit<
+  UseGetProps<EmployeeAjaxResponse, ErrorInfo, EmployeesGetQueryParams, void>,
   'path'
 >;
 
-export const useGetAllEmployees = (props: UseGetAllEmployeesProps) =>
-  useGet<EmployeeListAjaxResponse, ErrorInfo, UseGetAllEmployeesQueryParams, void>(
+export const useEmployeesGet = (props: UseEmployeesGetProps) =>
+  useGet<EmployeeAjaxResponse, ErrorInfo, EmployeesGetQueryParams, void>(
+    `/api/services/Assesment/Employees/Get`,
+    props
+  );
+
+export type UseEmployeesGetAllProps = Omit<
+  UseGetProps<EmployeeListAjaxResponse, ErrorInfo, UseEmployeesGetAllQueryParams, void>,
+  'path'
+>;
+
+export const useEmployeesGetAll = (props: UseEmployeesGetAllProps) =>
+  useGet<EmployeeListAjaxResponse, ErrorInfo, UseEmployeesGetAllQueryParams, void>(
     '/api/services/Assesment/Employees/GetAll',
     props
   );
@@ -92,5 +115,17 @@ export const useEmployeesCreate = (props: UseEmployeesCreateProps) =>
   useMutate<EmployeeListAjaxResponse, AjaxResponseBase, void, EmployeeDto>(
     'POST',
     `/api/services/Assesment/Employees/Create`,
+    props
+  );
+
+export type UseEmployeesUpdateProps = Omit<
+  UseMutateProps<EmployeeListAjaxResponse, ErrorInfo, void, EmployeeDto, void>,
+  'path' | 'verb'
+>;
+
+export const useEmployeesUpdate = (props: UseEmployeesCreateProps) =>
+  useMutate<EmployeeListAjaxResponse, AjaxResponseBase, void, EmployeeDto>(
+    'PUT',
+    `/api/services/Assesment/Employees/Update`,
     props
   );

@@ -8,6 +8,7 @@ export enum EmployeesActionEnums {
   GetAllEmployeesError = 'GET_ALL_EMPLOYEES_ERROR',
   OpenCloseFiltersDrawer = 'OPEN_CLOSE_FILTERS_DRAWER',
   SetInteractiveMode = 'SET_INTERACTIVE_MODE',
+  StoreEmployeeId = 'STORE_EMPLOYEE_ID',
 }
 
 export const getAllEmployeesAction = createAction<IEmployeesStateContext>(
@@ -33,4 +34,9 @@ export const openCloseFiltersDrawerAction = createAction<IEmployeesStateContext,
 export const setInteractiveModeAction = createAction<IEmployeesStateContext, InterActiveMode>(
   EmployeesActionEnums.SetInteractiveMode,
   (interactiveMode: InterActiveMode) => ({ interactiveMode })
+);
+
+export const storeEmployeeIdAction = createAction<IEmployeesStateContext, string>(
+  EmployeesActionEnums.StoreEmployeeId,
+  (employeeId: string) => ({ employeeId })
 );
