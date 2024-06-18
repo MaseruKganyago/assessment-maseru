@@ -17,8 +17,9 @@ import {
   setInteractiveModeAction,
 } from './actions';
 import { useLocalStorage } from '@/hooks';
+import _ from 'lodash';
 
-export const FILTERS_SETTIGNS_ID = 'FILTERS_SETTIGNS_ID';
+export const FILTERS_SETTIGNS_ID = 'FILTERS_SETTINGS';
 
 const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   const [state, dispatch] = useReducer(employeesReducer, EMPLOYEES_CONTEXT_INITIAL_STATE);
@@ -42,14 +43,16 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   }, [isFetchingAllEmployees]);
 
   const getAllEmployees = (filters: UseGetAllEmployeesQueryParams) => {
-    const newFilters = { ...filterSettings, ...filters };
-    setFilterSettings(newFilters);
-
-    getAllEmployeesHttp({ queryParams: newFilters });
+    getAllEmployeesHttp({ queryParams: filters });
   };
   //#endregion
 
   const openCloseFiltersDrawer = (drawerState: FiltersDrawer) => dispatch(openCloseFiltersDrawerAction(drawerState));
+
+  //Update filter settings, in local storage.
+  const storeFilterSettings = (filters: UseGetAllEmployeesQueryParams) => {
+    setFilterSettings({ ...filterSettings, ...filters });
+  };
 
   // Clear filter settings, in FilterDrawer component.
   const clearFilterSettings = () => {
@@ -62,7 +65,13 @@ const EmployeesProvider: FC<PropsWithChildren<any>> = ({ children }) => {
   return (
     <EmployeesStateContext.Provider value={{ ...state, isFetchingAllEmployees, filterSettings }}>
       <EmployeesActionsContext.Provider
-        value={{ getAllEmployees, openCloseFiltersDrawer, clearFilterSettings, setInteractiveMode }}
+        value={{
+          getAllEmployees,
+          openCloseFiltersDrawer,
+          storeFilterSettings,
+          clearFilterSettings,
+          setInteractiveMode,
+        }}
       >
         {children}
       </EmployeesActionsContext.Provider>

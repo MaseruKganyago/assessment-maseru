@@ -18,6 +18,7 @@ export interface IEmployeesActionsContext {
   openCloseFiltersDrawer: (drawerState: FiltersDrawer) => void;
   clearFilterSettings: () => void;
   setInteractiveMode: (interactiveMode: InterActiveMode) => void;
+  storeFilterSettings: (filters: UseGetAllEmployeesQueryParams) => void;
 }
 
 export const EMPLOYEES_CONTEXT_INITIAL_STATE: IEmployeesStateContext = {};
