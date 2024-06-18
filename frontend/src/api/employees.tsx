@@ -129,3 +129,19 @@ export const useEmployeesUpdate = (props: UseEmployeesCreateProps) =>
     `/api/services/Assesment/Employees/Update`,
     props
   );
+
+export interface EmployeesDeleteQueryParams {
+  id?: string;
+}
+
+export type UseEmployeesDeleteProps = Omit<
+  UseMutateProps<void, ErrorInfo, EmployeesDeleteQueryParams, void, void>,
+  'path' | 'verb'
+>;
+
+export const useEmployeesDelete = (props: UseEmployeesDeleteProps) =>
+  useMutate<void, unknown, EmployeesDeleteQueryParams, void>(
+    'DELETE',
+    `/api/services/Assesment/Employees/Delete`,
+    props
+  );

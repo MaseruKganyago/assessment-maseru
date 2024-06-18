@@ -1,17 +1,18 @@
 import { EmployeeDto } from '@/api/employees';
-import { EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Typography } from 'antd';
 import { FC } from 'react';
 import { StyledEmployeeCard } from './styles';
 import { useEmployees } from '@/providers';
 import { UpdateEmployeeModal } from '@/components';
+import EmployeeDeleteButton from './employeeDeleteButton';
 
 interface IEmployeeCardProps extends EmployeeDto {}
 
 const { Text } = Typography;
 
 const EmployeeCard: FC<IEmployeeCardProps> = ({ id, employeeId, firstName, lastName, phoneNumber }) => {
-  const { setInteractiveMode, storeEmployeeId } = useEmployees();
+  const { setInteractiveMode, storeEmployeeId, filterSettings, getAllEmployees } = useEmployees();
 
   const handleEdit = () => {
     setInteractiveMode('edit');
@@ -22,6 +23,8 @@ const EmployeeCard: FC<IEmployeeCardProps> = ({ id, employeeId, firstName, lastN
       <Button type="link" onClick={handleEdit}>
         <EditOutlined />
       </Button>
+
+      <EmployeeDeleteButton id={id} postDelete={() => getAllEmployees(filterSettings)} />
 
       <Text strong>{employeeId}</Text>
 
