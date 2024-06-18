@@ -10,7 +10,14 @@ import _ from 'lodash';
 interface IFilterDrawerProps {}
 
 export const FiltersDrawer: FC<IFilterDrawerProps> = ({}) => {
-  const { drawerState, openCloseFiltersDrawer, getAllEmployees, filterSettings, clearFilterSettings } = useEmployees();
+  const {
+    drawerState,
+    openCloseFiltersDrawer,
+    getAllEmployees,
+    filterSettings,
+    clearFilterSettings,
+    storeFilterSettings,
+  } = useEmployees();
 
   const [form] = Form.useForm<UseGetAllEmployeesQueryParams>();
 
@@ -19,10 +26,10 @@ export const FiltersDrawer: FC<IFilterDrawerProps> = ({}) => {
     delete filterSettings?.searchString;
 
     if (!_.isEmpty(filterSettings)) {
-      filterSettings.dateOfBirth = moment(filterSettings?.dateOfBirth);
+      filterSettings.dateOfBirth = _.isEmpty(filterSettings?.dateOfBirth) ? null : moment(filterSettings?.dateOfBirth);
 
       // Set form values, with dateOfBirth as moment object.
-      form.setFieldsValue({ ...filterSettings, dateOfBirth: moment(filterSettings?.dateOfBirth) });
+      form.setFieldsValue({ ...filterSettings });
     } else {
       form.resetFields();
     }
@@ -34,6 +41,9 @@ export const FiltersDrawer: FC<IFilterDrawerProps> = ({}) => {
 
     //Send request to get all employees with dateOfBirth as a string.
     getAllEmployees({ ...formValues, dateOfBirth: dateString });
+    storeFilterSettings({ ...filterSettings, ...formValues, dateOfBirth: dateString });
+
+    openCloseFiltersDrawer('closed');
   };
 
   const onClearFilters = () => {
