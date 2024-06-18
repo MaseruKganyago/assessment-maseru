@@ -16,11 +16,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const url = process?.env?.BACKEND_URL || 'https://localhost:44362';
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <AntdRegistry>
-          <AppProvider>{children}</AppProvider>
+          <AppProvider baseUrl={url}>{children}</AppProvider>
         </AntdRegistry>
       </body>
     </html>
