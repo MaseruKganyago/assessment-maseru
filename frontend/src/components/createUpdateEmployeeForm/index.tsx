@@ -4,6 +4,7 @@ import { FormInstance } from 'antd/lib';
 import { FC, useState } from 'react';
 import { FormRow } from '@/components';
 import { useEmployees } from '@/providers';
+import SkillsFormList from './skillsFormList';
 
 interface CreateUpdateEmployeeFormProps {
   form: FormInstance;
@@ -13,7 +14,9 @@ const FormItem = Form.Item;
 
 const CreateUpdateEmployeeForm: FC<CreateUpdateEmployeeFormProps> = ({ form }) => {
   const { interactiveMode } = useEmployees();
-  const isCreateMode = interactiveMode === 'create'; //On Create mode, only First Name and Last Name are required
+
+  //On Create mode, only First Name and Last Name are required
+  const isCreateMode = interactiveMode === 'create';
 
   const [email, setEmail] = useState<string>('');
   const handleEmailChange = (email: string) => {
@@ -41,8 +44,24 @@ const CreateUpdateEmployeeForm: FC<CreateUpdateEmployeeFormProps> = ({ form }) =
         <Input />
       </FormItem>
 
-      <FormItem label="Email Address" name="email" rules={[{ required: !isCreateMode }]}>
-        <Input />
+      <FormItem
+        label="Email Address"
+        name="email"
+        rules={[
+          {
+            required: !isCreateMode,
+            //Custom validator to check if email is valid
+            validator(_, value) {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+              if (emailRegex.test(value)) return Promise.resolve();
+
+              return Promise.reject(new Error('Please enter a valid email address'));
+            },
+          },
+        ]}
+      >
+        <Input value={email} onChange={(e) => handleEmailChange(e.target.value)} />
       </FormItem>
 
       <FormRow
@@ -79,6 +98,9 @@ const CreateUpdateEmployeeForm: FC<CreateUpdateEmployeeFormProps> = ({ form }) =
           </FormItem>
         }
       />
+
+      <Divider orientation="left">Skills</Divider>
+      <SkillsFormList />
     </Form>
   );
 };
