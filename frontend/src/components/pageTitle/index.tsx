@@ -14,7 +14,7 @@ export const PageTitle: FC<TitleProps> = ({}) => {
   return (
     <StyledTitle className="employee-page-title">
       <Title level={5}>Employees Directory</Title>
-      <Text code>
+      <Text code strong italic>
         There is {totalEmployees ?? 0} {totalEmployees > 1 || totalEmployees === 0 ? 'employees' : 'employee'}
       </Text>
     </StyledTitle>
