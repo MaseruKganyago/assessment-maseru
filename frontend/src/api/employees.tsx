@@ -1,4 +1,4 @@
-import { UseGetProps, useGet } from 'restful-react';
+import { UseGetProps, UseMutateProps, useGet, useMutate } from 'restful-react';
 
 export interface ReferenceListItemValueDto {
   item?: string | null;
@@ -64,6 +64,14 @@ export interface UseGetAllEmployeesQueryParams {
   yearsOfExperience?: number | null;
 }
 
+export interface AjaxResponseBase {
+  targetUrl?: string | null;
+  success?: boolean;
+  error?: ErrorInfo;
+  unAuthorizedRequest?: boolean;
+  __abp?: boolean;
+}
+
 export type UseGetAllEmployeesProps = Omit<
   UseGetProps<EmployeeListAjaxResponse, ErrorInfo, UseGetAllEmployeesQueryParams, void>,
   'path'
@@ -72,5 +80,17 @@ export type UseGetAllEmployeesProps = Omit<
 export const useGetAllEmployees = (props: UseGetAllEmployeesProps) =>
   useGet<EmployeeListAjaxResponse, ErrorInfo, UseGetAllEmployeesQueryParams, void>(
     '/api/services/Assesment/Employees/GetAll',
+    props
+  );
+
+export type UseEmployeesCreateProps = Omit<
+  UseMutateProps<EmployeeListAjaxResponse, ErrorInfo, void, EmployeeDto, void>,
+  'path' | 'verb'
+>;
+
+export const useEmployeesCreate = (props: UseEmployeesCreateProps) =>
+  useMutate<EmployeeListAjaxResponse, AjaxResponseBase, void, EmployeeDto>(
+    'POST',
+    `/api/services/Assesment/Employees/Create`,
     props
   );
