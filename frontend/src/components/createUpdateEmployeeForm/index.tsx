@@ -1,10 +1,13 @@
 import { DATE_FORMAT } from '@/app-constants';
-import { DatePicker, Divider, Form, Input, InputNumber } from 'antd';
+import { DatePicker, Divider, Form, Input, InputNumber, Skeleton } from 'antd';
 import { FormInstance } from 'antd/lib';
-import { FC, useState } from 'react';
-import { FormRow } from '@/components';
+import { FC, useEffect, useState } from 'react';
+import { FormRow, ValidationErrors } from '@/components';
 import { useEmployees } from '@/providers';
 import SkillsFormList from './skillsFormList';
+import { useEmployeesGet } from '@/api/employees';
+import _ from 'lodash';
+import moment from 'moment';
 
 interface CreateUpdateEmployeeFormProps {
   form: FormInstance;
@@ -13,10 +16,27 @@ interface CreateUpdateEmployeeFormProps {
 const FormItem = Form.Item;
 
 const CreateUpdateEmployeeForm: FC<CreateUpdateEmployeeFormProps> = ({ form }) => {
-  const { interactiveMode } = useEmployees();
+  const { interactiveMode, employeeId } = useEmployees();
+
+  const { refetch, data, loading, error } = useEmployeesGet({ queryParams: { id: employeeId }, lazy: true });
+  const employee = data?.result;
 
   //On Create mode, only First Name and Last Name are required
   const isCreateMode = interactiveMode === 'create';
+
+  useEffect(() => {
+    if (!isCreateMode) {
+      refetch();
+    }
+  }, [isCreateMode]);
+
+  useEffect(() => {
+    if (employee) {
+      employee.dateOfBirth = _.isEmpty(employee?.dateOfBirth) ? null : moment(employee.dateOfBirth);
+      form.setFieldsValue(employee);
+      setEmail(employee.email);
+    }
+  }, [employee]);
 
   const [email, setEmail] = useState<string>('');
   const handleEmailChange = (email: string) => {
@@ -24,17 +44,20 @@ const CreateUpdateEmployeeForm: FC<CreateUpdateEmployeeFormProps> = ({ form }) =
     setEmail(email.trim());
   };
 
+  if (loading) return <Skeleton active paragraph={{ rows: 7 }} />;
+  if (error) return <ValidationErrors error={error} />;
+
   return (
     <Form layout="vertical" size="small" requiredMark form={form}>
       <Divider orientation="left">Basic Information</Divider>
       <FormRow
         leftCol={
-          <FormItem label="First Name" name="firstName" rules={[{ required: isCreateMode }]}>
+          <FormItem label="First Name" name="firstName" rules={[{ required: true }]}>
             <Input />
           </FormItem>
         }
         rightCol={
-          <FormItem label="Last Name" name="lastName" rules={[{ required: isCreateMode }]}>
+          <FormItem label="Last Name" name="lastName" rules={[{ required: true }]}>
             <Input />
           </FormItem>
         }

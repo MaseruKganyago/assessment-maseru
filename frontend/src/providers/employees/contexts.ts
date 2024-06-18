@@ -1,4 +1,4 @@
-import { EmployeeDto, UseGetAllEmployeesQueryParams } from '@/api/employees';
+import { EmployeeDto, UseEmployeesGetAllQueryParams } from '@/api/employees';
 import { createContext } from 'react';
 
 export type FiltersDrawer = 'open' | 'closed';
@@ -8,17 +8,19 @@ export interface IEmployeesStateContext {
   employees?: EmployeeDto[];
   isFetchingAllEmployees?: boolean;
   error?: any;
-  filterSettings?: UseGetAllEmployeesQueryParams;
+  filterSettings?: UseEmployeesGetAllQueryParams;
   drawerState?: FiltersDrawer;
   interactiveMode?: InterActiveMode;
+  employeeId?: string;
 }
 
 export interface IEmployeesActionsContext {
-  getAllEmployees: (filters?: UseGetAllEmployeesQueryParams) => void;
+  getAllEmployees: (filters?: UseEmployeesGetAllQueryParams) => void;
   openCloseFiltersDrawer: (drawerState: FiltersDrawer) => void;
   clearFilterSettings: () => void;
-  setInteractiveMode: (interactiveMode: InterActiveMode) => void;
-  storeFilterSettings: (filters: UseGetAllEmployeesQueryParams) => void;
+  setInteractiveMode: (interactiveMode?: InterActiveMode) => void;
+  storeFilterSettings: (filters: UseEmployeesGetAllQueryParams) => void;
+  storeEmployeeId: (employeeId: string) => void;
 }
 
 export const EMPLOYEES_CONTEXT_INITIAL_STATE: IEmployeesStateContext = {
