@@ -19,6 +19,11 @@ namespace Maseru.Assesment.Tests.Employees
 			_employeeManager = Resolve<EmployeeManager>();
 		}
 
+		/// <summary>
+		/// Note: Having an issue with Depencies, currently getting a runtime error of "System.TypeInitializationException
+		/// : The type initializer for 'Shesha.Extensions.AssemblyExtensions' threw an exception.
+		/// Castle.MicroKernel.ComponentNotFoundException : No component for supporting the service Abp.Reflection.ITypeFinder was found"
+		/// </summary>
 		[Fact]
 		public void Should_Generate_Employee_Id()
 		{
