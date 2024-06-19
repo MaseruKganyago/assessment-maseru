@@ -10,6 +10,7 @@ using Abp.Modules;
 using Abp.Net.Mail;
 using Abp.Reflection;
 using Abp.TestBase;
+using Abp.Zero;
 using Abp.Zero.Configuration;
 using Castle.Facilities.Logging;
 using Castle.MicroKernel.Registration;
@@ -36,13 +37,13 @@ using System.Reflection;
 namespace Maseru.Assesment.Tests
 {
 	[DependsOn(
-		typeof(AbpAspNetCoreModule),
+		typeof(AbpZeroCoreModule),
+		typeof(AssesmentModule),
 		typeof(AbpKernelModule),
 		typeof(AbpTestBaseModule),
 		typeof(SheshaApplicationModule),
 		typeof(SheshaNHibernateModule),
-		typeof(SheshaFrameworkModule),
-		typeof(AssesmentModule)
+		typeof(SheshaFrameworkModule)
 		)]
 	public class AssesmentDomainTestModule : AbpModule
 	{
