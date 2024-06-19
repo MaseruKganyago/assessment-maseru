@@ -1,15 +1,19 @@
 using Abp;
+using Abp.AspNetCore;
 using Abp.AspNetCore.Configuration;
+using Abp.AutoMapper;
 using Abp.Castle.Logging.Log4Net;
 using Abp.Configuration.Startup;
 using Abp.Dependency;
 using Abp.Domain.Uow;
 using Abp.Modules;
 using Abp.Net.Mail;
+using Abp.Reflection;
 using Abp.TestBase;
 using Abp.Zero.Configuration;
 using Castle.Facilities.Logging;
 using Castle.MicroKernel.Registration;
+using Castle.Windsor.MsDependencyInjection;
 using Hangfire;
 using Hangfire.SqlServer;
 using Maseru.Assesment;
@@ -17,11 +21,13 @@ using Maseru.Assesment.Tests.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Moq;
 using NSubstitute;
 using Shesha;
 using Shesha.FluentMigrator;
+using Shesha.Identity;
 using Shesha.NHibernate;
 using Shesha.Services;
 using System;
@@ -30,12 +36,13 @@ using System.Reflection;
 namespace Maseru.Assesment.Tests
 {
 	[DependsOn(
-		typeof(AssesmentModule),
+		typeof(AbpAspNetCoreModule),
 		typeof(AbpKernelModule),
 		typeof(AbpTestBaseModule),
 		typeof(SheshaApplicationModule),
 		typeof(SheshaNHibernateModule),
-		typeof(SheshaFrameworkModule)
+		typeof(SheshaFrameworkModule),
+		typeof(AssesmentModule)
 		)]
 	public class AssesmentDomainTestModule : AbpModule
 	{
@@ -52,19 +59,24 @@ namespace Maseru.Assesment.Tests
 
 		public override void PreInitialize()
 		{
+			if (!IocManager.IsRegistered<ITypeFinder>())
+				IocManager.IocContainer.Register(Component.For<ITypeFinder>().ImplementedBy<TypeFinder>().LifestyleSingleton());
+
 			Configuration.UnitOfWork.Timeout = TimeSpan.FromMinutes(30);
 			Configuration.UnitOfWork.IsTransactional = false;
+
+			Configuration.Modules.AbpAutoMapper().UseStaticMapper = false;
 
 			Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
 
 			// mock IWebHostEnvironment
 			IocManager.IocContainer.Register(Component.For<IWebHostEnvironment>().ImplementedBy<TestWebHostEnvironment>().LifestyleSingleton());
 
-			IocManager.IocContainer.Register(
-				Component.For<IAbpAspNetCoreConfiguration>()
-					.ImplementedBy<AbpAspNetCoreConfiguration>()
-					.LifestyleSingleton()
-			);
+			//IocManager.IocContainer.Register(
+			//	Component.For<IAbpAspNetCoreConfiguration>()
+			//		.ImplementedBy<AbpAspNetCoreConfiguration>()
+			//		.LifestyleSingleton()
+			//);
 
 			var appLifetimeMoq = new Mock<IHostApplicationLifetime>();
 			IocManager.IocContainer.Register(
@@ -91,6 +103,11 @@ namespace Maseru.Assesment.Tests
 					})
 					.LifestyleSingleton()
 			);
+
+			var services = new ServiceCollection();
+
+			IdentityRegistrar.Register(services);
+			WindsorRegistrationHelper.CreateServiceProvider(IocManager.IocContainer, services);
 
 			// Use database for language management
 			Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
