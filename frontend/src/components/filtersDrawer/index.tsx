@@ -3,7 +3,7 @@ import { Button, DatePicker, Divider, Drawer, Form, FormInstance, Input, InputNu
 import { FC, useEffect } from 'react';
 import { SkillLevelDropDown } from '@/components';
 import { FilterOutlined } from '@ant-design/icons';
-import { UseGetAllEmployeesQueryParams } from '@/api/employees';
+import { UseEmployeesGetAllQueryParams } from '@/api/employees';
 import moment, { Moment } from 'moment';
 import _ from 'lodash';
 
@@ -19,7 +19,7 @@ export const FiltersDrawer: FC<IFilterDrawerProps> = ({}) => {
     storeFilterSettings,
   } = useEmployees();
 
-  const [form] = Form.useForm<UseGetAllEmployeesQueryParams>();
+  const [form] = Form.useForm<UseEmployeesGetAllQueryParams>();
 
   useEffect(() => {
     // Remove search string from filter settings, as it is not needed in filters drawer.
